@@ -90,7 +90,9 @@ class  DMRServer(object):
         self.Port = DMRPort
         self.Run = True
         self.ServerSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.DataGramSize = 1024
         self.Radios = Radios()
+        
         
     def hold_stuff(self):
             hello = "Hello %s" % (cleintIP)
@@ -98,17 +100,23 @@ class  DMRServer(object):
             socketforClient.send(encodedMsg)
 
     def sendName(self):
-        
+        pass        
         
     def run_server(self):
+        """Start and run Server """
         self.ServerSocket.bind(self.IP, self.Port)
         print("   DMR Server listening on IP: %s Port:%s" % (self.IP, self.Port))
         while(self.Run):
-            msgAndAddress = self.ServerSocket.recvfrom(1024)
+            msgAndAddress = self.ServerSocket.recvfrom(self.DataGramSize)
             timeval = datetime.datetime.now()
-            msg = msgAndAddress[0].decode()            
-            print("%s: msg: %s  recived from IP: %s" % (timeval, msg, clientIP))
-            
+            msg = msgAndAddress[0].decode()
+            i = 0
+            for m in msgAndAddress:
+                print("msgAndAddress[%s]: %s" % (i, m))
+                i =+ 1
+            clientIP = "0.0.0.0"
+            print("%s: msg: %s  recived from %s" % (timeval, msg, msgAndAddress[1]))
+            self.ServerSocket.sendto("Hello Client!".encode(), msgAndAddress[1])
             
     def exit_now(self):
         sys.exit(1)
@@ -120,11 +128,9 @@ class  DMRServer(object):
             i.print_help()
         print('    --------------------------------------------------------------------------------------')
 
-def testing(self, h=None):
-    print('  Testing ...')
     
 if __name__ == "__main__":
-    S = DMRServer(LocolIP="127.0.0.1", LocalPort="4007")
+    S = DMRServer(LocolIP="192.168.1.17", LocalPort="4007")
     S.run_server()
     #L = Login(login='halc')
     #L.Login()
