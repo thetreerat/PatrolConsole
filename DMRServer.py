@@ -2,7 +2,7 @@
 #
 from menu import Menu
 from login import Login
-from database import database
+#from database import database
 import socket
 import datetime
 
@@ -135,7 +135,6 @@ if __name__ == "__main__":
     #L = Login(login='halc')
     #L.Login()
     #ski_db = database(owner='main.py - __main__')
-    
     #Main = Menu('Main Menu', db_handle=None)
     #Main.menu_display = Main.print_help    
     #Main.add_item('Test', 'Testing ...', instructor_menu)
