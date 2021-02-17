@@ -23,6 +23,12 @@ class Radio(object):
             SignedIn=RadioSignedIn
     def SignIn(self):
         self.SignedIn = datetime.datetime.now()
+
+    def print(self):
+        print("Name: %s  IP: %s ID: %s SignedIn: %s" % (self.Name.ljust(25, " "), 
+                                                        self.IP.ljust(15, " "),
+                                                        self.ID.ljust(25, " "),
+                                                        self.SignedIn))
     
     
 class Radios(object):
@@ -104,17 +110,25 @@ class  DMRServer(object):
         
     def run_server(self):
         """Start and run Server """
+        R = Radios()
         self.ServerSocket.bind((self.IP, self.Port))
         print("   DMR Server listening on IP: %s Port:%s" % (self.IP, self.Port))
         while(self.Run):
             msgAndAddress = self.ServerSocket.recvfrom(self.DataGramSize)
             timeval = datetime.datetime.now()
             msg = msgAndAddress[0].decode()
-            print("%s: msg: %s  recived from %s" % (timeval, msg, msgAndAddress[1][0]))
+            r = R.checkIP(msgAndAddress[1][0], Radio.object)
+            if not r:
+                r = Radio(IP=msgAndAddress[1][0], Name="UDP Client")
+                print("Added Radio to Active List")
+            if not r.SignIn:
+                    print("Radio not Assigned to user")
+
+            print("%s: msg: %s  recived from %s" % (timeval, msg, r.IP))
             returnmsg = "Hello Client!"
             self.ServerSocket.sendto(returnmsg.encode(), msgAndAddress[1])
             print("Sent: %s" % (returnmsg))
-            print("Raw: " + returnmsg)
+
     def exit_now(self):
         sys.exit(1)
         
