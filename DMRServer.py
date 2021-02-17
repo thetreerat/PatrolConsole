@@ -112,7 +112,7 @@ class  DMRServer(object):
             msg = msgAndAddress[0].decode()
             print("%s: msg: %s  recived from %s" % (timeval, msg, msgAndAddress[1][0]))
             returnmsg = "Hello Client!"
-            self.ServerSocket.sendto(returnmsg.encode(), msgAndAddress[1][0])
+            self.ServerSocket.sendto(returnmsg.encode(), msgAndAddress[1])
             print("Sent: %" (returnmsg))
             print("Raw: " + returnmsg)
     def exit_now(self):
