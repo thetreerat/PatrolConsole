@@ -27,10 +27,10 @@ class RadioClient(object):
     
 class Radios(object):
     """Class of a list of radios """
-    Radios.index = 1
-    Radios.object = 2
-    Radios.IP = 3
-    Radios.Name = 4
+    #Radios.index = 1
+    #Radios.object = 2
+    #Radios.IP = 3
+    #Radios.Name = 4
 
     
     def __init__(self):
