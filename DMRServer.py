@@ -84,10 +84,10 @@ class Radios(object):
 class  DMRServer(object):
     """DMR Server Class"""
     def __init__(self,
-                 DMRIP=None,
-                 DMRPort=None):
-        self.IP = DMRIP
-        self.Port = DMRPort
+                 IP=None,
+                 Port=None):
+        self.IP = IP
+        self.Port = Port
         self.Run = True
         self.ServerSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.DataGramSize = 1024
@@ -104,7 +104,7 @@ class  DMRServer(object):
         
     def run_server(self):
         """Start and run Server """
-        self.ServerSocket.bind(self.IP, self.Port)
+        self.ServerSocket.bind((self.IP, self.Port))
         print("   DMR Server listening on IP: %s Port:%s" % (self.IP, self.Port))
         while(self.Run):
             msgAndAddress = self.ServerSocket.recvfrom(self.DataGramSize)
@@ -130,7 +130,7 @@ class  DMRServer(object):
 
     
 if __name__ == "__main__":
-    S = DMRServer(LocolIP="192.168.1.17", LocalPort="4007")
+    S = DMRServer(IP="192.168.1.17", Port=4007)
     S.run_server()
     #L = Login(login='halc')
     #L.Login()
