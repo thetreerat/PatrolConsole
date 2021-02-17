@@ -1,7 +1,7 @@
 # Copyright Harold Clark 2021
 #
-from menu import Menu
-from login import Login
+#from menu import Menu
+#from login import Login
 #from database import database
 import socket
 import datetime
