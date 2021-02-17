@@ -6,8 +6,8 @@
 import socket
 import datetime
 
-class RadioClient(object):
-    """Radio Cleint Class Object """
+class Radio(object):
+    """Radio Class Object """
     def __init__(self,
                  ID=None,
                  Name=None,
@@ -27,10 +27,10 @@ class RadioClient(object):
     
 class Radios(object):
     """Class of a list of radios """
-    #Radios.index = 1
-    #Radios.object = 2
-    #Radios.IP = 3
-    #Radios.Name = 4
+    Radio.index = 1
+    Radio.object = 2
+    Radio.IP = 3
+    Radio.Name = 4
 
     
     def __init__(self):
@@ -52,31 +52,31 @@ class Radios(object):
     def clear(self):
         self.Radios = []
     
-    def checkIP(self, RIP, return_type=Radios.object):
+    def checkIP(self, RIP, return_type=Radio.object):
         i=0
         for o in self.Radios:
             if o.IP==RIP:
-                if return_type==Radios.index:
+                if return_type==Radio.index:
                     return i
-                elif return_type==Radios.object:
+                elif return_type==Radio.object:
                     return o
-                elif return_type==Radios.IP:
+                elif return_type==Radio.IP:
                     return o.IP
-                elif return_type==Radios.Name:
+                elif return_type==Radio.Name:
                     return o.Name
             i += 1
 
-    def checkID(self, RID, return_type=Radios.object):
+    def checkID(self, RID, return_type=Radio.object):
         i = 0
         for o in self.Radios:
             if o.ID==RID:
-                if return_type==Radios.index:
+                if return_type==Radio.index:
                     return i
-                elif return_type==Radios.object:
+                elif return_type==Radio.object:
                     return o
-                elif return_type==Radios.IP:
+                elif return_type==Radio.IP:
                     return o.IP
-                elif return_type==Radios.Name:
+                elif return_type==Radio.Name:
                     return o.Name
             i += 1
         return None
