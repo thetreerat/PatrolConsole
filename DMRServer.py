@@ -110,14 +110,11 @@ class  DMRServer(object):
             msgAndAddress = self.ServerSocket.recvfrom(self.DataGramSize)
             timeval = datetime.datetime.now()
             msg = msgAndAddress[0].decode()
-            i = 0
-            for m in msgAndAddress:
-                print("msgAndAddress[%s]: %s" % (i, m))
-                i =+ 1
-            clientIP = "0.0.0.0"
-            print("%s: msg: %s  recived from %s" % (timeval, msg, msgAndAddress[1]))
-            self.ServerSocket.sendto("Hello Client!".encode(), msgAndAddress[1])
-            
+            print("%s: msg: %s  recived from %s" % (timeval, msg, msgAndAddress[1][0]))
+            returnmsg = "Hello Client!"
+            self.ServerSocket.sendto(returnmsg.encode(), msgAndAddress[1][0])
+            print("Sent: %" (returnmsg))
+            print("Raw: " + returnmsg)
     def exit_now(self):
         sys.exit(1)
         
