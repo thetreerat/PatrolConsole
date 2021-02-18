@@ -46,7 +46,7 @@ class Radio(object):
         else:
             return self._Location.ljust(pad, " ")
 
-    def Name(self, padik,m):
+    def Name(self, pad=0):
         if pad==0:
             return self._Name
         if self._Name==None:
@@ -77,7 +77,7 @@ class Radio(object):
             return "No".ljust(pad)
         else:
             return self._SignedIn 
-            
+
     def print_self(self):
         if self.Name==None:
             Name = "".ljust(25, " ")
