@@ -5,6 +5,7 @@
 #from database import database
 from Radio import Radio
 from Radios import Radios
+from DMRmessage import Message
 import socket
 import datetime
 
@@ -21,6 +22,11 @@ class  DMRServer(object):
         self.DataGramSize = 1024
         self.Radios = Radios()
         
+    def checkIPinList(self, msgAndAddress):
+        r = self.Radios.checkIP(msgAndAddress[1][0], Radio.object)  
+        if not r:
+            r = Radio()
+
         
     def hold_stuff(self):
             hello = "Hello %s" % (cleintIP)
@@ -32,23 +38,17 @@ class  DMRServer(object):
         
     def run_server(self):
         """Start and run Server """
-        R = Radios()
+        self.Radios = Radios()
         self.ServerSocket.bind((self.IP, self.Port))
         print("   DMR Server listening on IP: %s Port:%s" % (self.IP, self.Port))
         while(self.Run):
             msgAndAddress = self.ServerSocket.recvfrom(self.DataGramSize)
             timeval = datetime.datetime.now()
             msg = msgAndAddress[0].decode()
-            r = R.checkIP(msgAndAddress[1][0], Radio.object)
-            if not r:
-                r = Radio(IP=msgAndAddress[1][0], Name="UDP Client")
-                r.print_self()
-                print("Added Radio to Active List")
-            if not r.SignedIn():
-                    r.print_self()
-                    print("Radio not Assigned to user")
-            
-            print("%s: msg: %s  recived from %s" % (timeval, msg, r.IP))
+
+            m = Message(msgAndAddress)
+
+            print("%s: msg: %s  recived from %s" % (timeval, m.command(), r.IP))
             returnmsg = "Hello Client!"
             self.ServerSocket.sendto(returnmsg.encode(), msgAndAddress[1])
             print("Sent: %s" % (returnmsg))
@@ -66,9 +66,8 @@ class  DMRServer(object):
     
 if __name__ == "__main__":
     S = DMRServer(IP="192.168.1.17", Port=4007)
-    #S.run_server()
-    r = Radio(IP="192.168.1.12")
-    r.Name()
+    S.run_server()
+    
     #L = Login(login='halc')
     #L.Login()
     #ski_db = database(owner='main.py - __main__')

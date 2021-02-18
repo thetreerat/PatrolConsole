@@ -70,7 +70,14 @@ class Radio(object):
         self._Name = Name
 
     def SignIn(self):
+        #print("sign in!")
         self._SignedIn = datetime.datetime.now()
+
+    def print_self(self):
+        print("Name: %s  IP: %s ID: %s SignedIn: %s" % (self.Name(15), 
+                                                        self.IP(15),
+                                                        self.ID(15),
+                                                        self.SignedIn(15)))
 
     def SignedIn(self, pad=0):
         if pad==0: 
@@ -84,26 +91,23 @@ class Radio(object):
         else:
             return self._SignedIn.strftime("%X").ljust(pad, " ") 
 
-    def print_self(self):
-        if self.Name==None:
-            Name = "".ljust(25, " ")
-        else:
-            Name = ""
-        print("Name: %s  IP: %s ID: %s SignedIn: %s" % (self.Name(25), 
-                                                        self.IP(15),
-                                                        self.ID(25),
-                                                        self.SignedIn(15)))
     
+        
     
-
 if __name__ == "__main__":
-	r = Radio(IP="12.12.0.12")
-	r.set_Name("Hill Cheif")
-	r.set_ID("PL001")
-	r1 = Radio(IP="12.12.0.124")
-	r1.set_ID("SS001")
-	r1.set_Name("SSS Super 1")
-	r.SignIn()
-	print(r)
-	print(r1)
-	r.print_self()
+    #print('test')
+    r = Radio(IP="12.12.0.12")
+    # r.print_self()
+    r.set_Name("Hill Cheif")
+    r.set_ID("PL001")
+    r1 = Radio(IP="12.12.0.124")
+    r1.set_ID("SS001")
+    r1.set_Name("SSS Super 1")
+    #h = r.Name()
+    #print(h)
+    r.SignIn()
+	#print("Hello World")
+	#print(r1)
+	#r.print_self()
+    r.print_self()
+    print(r)

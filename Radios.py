@@ -45,6 +45,7 @@ class Radios(object):
                 elif return_type==Radio.Name:
                     return o.Name
             i += 1
+        return None
 
     def checkID(self, RID, return_type=Radio.object):
         i = 0
