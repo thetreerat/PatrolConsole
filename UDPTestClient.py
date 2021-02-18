@@ -9,6 +9,7 @@ class  UDPClient(object):
         """Create New Instanace of UDP Client Class"""
         self.ServerIP = IP
         self.ServerPort = Port
+        self.destination = (self.ServerIP, self.ServerPort)
         self.getbytes = 1024
         self.udpCleintSocket = None
         
@@ -34,13 +35,13 @@ Purpose        : This Class is a temlplete file
             self.udpCleintSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
     def requestData(self, SendData):
-        sentbytesCount = self.udpCleintSocket(SendData.encode(), (self.IP, self.Port))
+        sentbytesCount = self.udpCleintSocket.sendto(SendData.encode(), self.destination)
         recievedBytes = self.udpCleintSocket.recvfrom(self.getbytes)
-        print(recivedBytes)
+        print(recievedBytes)
 
 if __name__ == "__main__":
-    N = UDPClient(IP="192.168.1.12", Port="4007")
+    N = UDPClient(IP="192.168.1.17", Port=4007)
     print(N)
-    N.CreateSocket(self)
-    N.requestData()
+    N.CreateSocket()
+    N.requestData("Test")
     #N.About()
