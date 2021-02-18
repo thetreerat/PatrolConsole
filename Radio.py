@@ -20,6 +20,14 @@ class Radio(object):
         else:
             self._SignedIn=SignedIn
 
+    def __str__(self):
+        return "Radio ID: %s Radio Name: %s Radio IO: %s" % (self.ID(15), 
+        	                                                 self.Name(15), 
+        	                                                 self.IP(15))
+        
+    def __repr__(self):
+        return "Radios - pythonID: %s" % (id(self))
+
     def ID(self, pad=0):
         if pad==0:
             return self._ID
@@ -62,7 +70,7 @@ class Radio(object):
         self._Name = Name
 
     def SignIn(self):
-        self.SignedIn = datetime.datetime.now()
+        self._SignedIn = datetime.datetime.now()
 
     def SignedIn(self, pad=0):
         if pad==0: 
@@ -71,10 +79,10 @@ class Radio(object):
             else:
                 return self._SignedIn
 
-        if _SignedIn==False:
+        if self._SignedIn==False:
             return "No".ljust(pad)
         else:
-            return self._SignedIn 
+            return self._SignedIn.strftime("%X").ljust(pad, " ") 
 
     def print_self(self):
         if self.Name==None:
@@ -89,5 +97,13 @@ class Radio(object):
     
 
 if __name__ == "__main__":
-	r = (IP="192.168.0.12", Port=4007)
+	r = Radio(IP="12.12.0.12")
+	r.set_Name("Hill Cheif")
+	r.set_ID("PL001")
+	r1 = Radio(IP="12.12.0.124")
+	r1.set_ID("SS001")
+	r1.set_Name("SSS Super 1")
+	r.SignIn()
 	print(r)
+	print(r1)
+	r.print_self()
