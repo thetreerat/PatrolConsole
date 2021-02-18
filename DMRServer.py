@@ -202,7 +202,9 @@ class  DMRServer(object):
     
 if __name__ == "__main__":
     S = DMRServer(IP="192.168.1.17", Port=4007)
-    S.run_server()
+    #S.run_server()
+    r = Radio(IP="192.168.1.12")
+    r.Name()
     #L = Login(login='halc')
     #L.Login()
     #ski_db = database(owner='main.py - __main__')
