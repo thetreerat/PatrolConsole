@@ -13,22 +13,80 @@ class Radio(object):
                  Name=None,
                  IP=None,
                  SignedIn=None):
-        self.Name=Name
-        self.IP=IP
-        self.Location=None
-        self.ID=ID
+        self._Name=Name
+        self._IP=IP
+        self._Location=None
+        self._ID=ID
         if SignedIn==None:
-            self.SignedIn=False
+            self._SignedIn=False
         else:
-            SignedIn=RadioSignedIn
+            self._SignedIn=SignedIn
+
+    def ID(self, pad=0):
+        if pad==0:
+            return self._ID
+        if self._ID==None:
+            return " ".ljust(pad, " ")
+        else:
+            return self._ID.ljust(pad, " ")
+
+    def IP(self, pad=0):
+        if pad==0:
+            return self._IP
+        if self._IP==None:
+            return " ".ljust(pad, " ")
+        else:
+            return self._IP.ljust(pad, " ")
+
+    def Location(self, pad=0):
+        if pad==0:
+            return self._Location
+        if self._Location==None:
+            return " ".ljust(pad, " ")
+        else:
+            return self._Location.ljust(pad, " ")
+
+    def Name(self, padik,m):
+        if pad==0:
+            return self._Name
+        if self._Name==None:
+            return "".ljust(pad, " ")
+        else:
+            return self._Name.ljust(pad, " ")    
+
+    def set_IP(self, IP):
+        self._IP = IP
+
+    def set_ID(self, ID):
+        self._ID = ID
+
+    def set_Name(self, Name):
+        self._Name = Name
+
     def SignIn(self):
         self.SignedIn = datetime.datetime.now()
 
+    def SignedIn(self, pad=0):
+        if pad==0: 
+            if self._SignedIn==False:
+                return 0
+            else:
+                return self._SignedIn
+
+        if _SignedIn==False:
+            return "No".ljust(pad)
+        else:
+            return self._SignedIn 
+            
     def print_self(self):
-        print("Name: %s  IP: %s ID: %s SignedIn: %s" % (self.Name.ljust(25, " "), 
-                                                        self.IP.ljust(15, " "),
-                                                        self.ID.ljust(25, " "),
-                                                        self.SignedIn))
+        if self.Name==None:
+            Name = "".ljust(25, " ")
+        else:
+            Name = ""
+        print("Name: %s  IP: %s ID: %s SignedIn: %s" % (self.Name(25), 
+                                                        self.IP(15),
+                                                        self.ID(25),
+                                                        self.SignedIn(15)))
     
     
 class Radios(object):
