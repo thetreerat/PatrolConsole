@@ -33,17 +33,18 @@ class Radios(object):
         self.Radios = []
     
     def checkIP(self, RIP, return_type=Radio.object):
+
         i=0
-        for o in self.Radios:
-            if o.IP==RIP:
+        for radio in self.Radios:
+            if radio.RadioIP()==RIP:
                 if return_type==Radio.index:
                     return i
                 elif return_type==Radio.object:
-                    return o
+                    return radio
                 elif return_type==Radio.IP:
-                    return o.IP
+                    return radio.IP
                 elif return_type==Radio.Name:
-                    return o.Name
+                    return radio.RadioName
             i += 1
         return None
 
@@ -61,3 +62,20 @@ class Radios(object):
                     return o.Name
             i += 1
         return None
+
+    def sort(self):
+        self.Radios = sorted(self.Radios, key=self.sort_key_Radio_ID)
+
+    def sort_key_Radio_ID(self, i):
+        return i._ID
+
+if __name__ == "__main__":
+    R = Radios()
+    r = Radio(RadioID='PR0001', RadioIP='192.168.1.17')
+    i =0
+    while i<4:
+        if R.checkIP(r.RadioIP())==None:
+            R.append(r)
+        i += 1
+    print(len(R))
+    print("Done")

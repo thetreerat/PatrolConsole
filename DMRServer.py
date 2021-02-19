@@ -35,7 +35,28 @@ class  DMRServer(object):
 
     def sendName(self):
         pass        
+    def checkRadioCommand(self, m, rmsg):
+        if command=='Signin':
+            r = self.Radios.checkIP(m.sourceIP, return_type.object)
+            r.Signin()
+            signmsg = "%s signed in for %s." % (r.RadioID(0), m.extra(0))
+            print(signmsg)
+            rmsg.set_extra(rmsg.extra(0) + " " + signmsg)
+            return rmsg
+
+    def checkRadioRegisteration(self, msg, rmsg, timeval):
+        r = self.Radios.checkIP(msg.sourceIP, return_type=Radio.object)
+        print("%s: msg: %s  recived from %s return port %s" % (timeval, msg.command(), msg.sourceIP, msg.sourcePort))
+        if r==None:
+            r = Radio(RadioIP=msg.sourceIP, RadioID=msg.RadioID)
+            self.Radios.append(r)
+            print("Radio %s with IP address %s add to List of Active Radios" % (r.RadioID(0), r.RadioIP(0)))
+            rmsg.set_extra(rmsg.extra(0) + " Added to list of Active Radios")
+        if r.SignedIn()==False:
+            print("Radio %s not sign in with user!")
+            rmsg.set_extra(rmsg.extra(0) + " Please Sign radio in!")
         
+        return rmsg
     def run_server(self):
         """Start and run Server """
         self.Radios = Radios()
@@ -43,15 +64,23 @@ class  DMRServer(object):
         print("   DMR Server listening on IP: %s Port:%s" % (self.IP, self.Port))
         while(self.Run):
             msgAndAddress = self.ServerSocket.recvfrom(self.DataGramSize)
-            timeval = datetime.datetime.now()
-            msg = msgAndAddress[0].decode()
+            try:
+                timeval = datetime.datetime.now()
+                returnmsg = Message()
+                msg = msgAndAddress[0].decode()
 
-            m = Message(msgAndAddress)
-
-            print("%s: msg: %s  recived from %s" % (timeval, m.command(), r.IP))
-            returnmsg = "Hello Client!"
-            self.ServerSocket.sendto(returnmsg.encode(), msgAndAddress[1])
-            print("Sent: %s" % (returnmsg))
+                m = Message(msgAndAddress)
+                returnmsg = Message()
+                returnmsg = self.checkRadioRegisteration(m, returnmsg, timeval)
+                returnmsg = self.checkRadioCommand(m, returnmsg)
+                # Closing message if nothing to do!!
+                if returnmsg.extra()==None:
+                    returnmsg.set_extra("Hello Client!")
+                self.ServerSocket.sendto(returnmsg.encoded, msgAndAddress[1])
+                print("Sent: %s" % (returnmsg))
+            except Exception:
+                self.ServerSocket.sendto("Error!!".encode(), msgAndAddress[1])
+                raise
 
     def exit_now(self):
         sys.exit(1)

@@ -7,66 +7,70 @@ import datetime
 class Radio(object):
     """Radio Class Object """
     def __init__(self,
-                 ID=None,
-                 Name=None,
-                 IP=None,
+                 RadioID=None,
+                 RadioName=None,
+                 RadioIP=None,
                  SignedIn=None):
-        self._Name=Name
-        self._IP=IP
+        self._Name=RadioName
+        self._IP=RadioIP
         self._Location=None
-        self._ID=ID
+        self._ID=RadioID
         if SignedIn==None:
             self._SignedIn=False
         else:
             self._SignedIn=SignedIn
 
     def __str__(self):
-        return "Radio ID: %s Radio Name: %s Radio IO: %s" % (self.ID(15), 
-        	                                                 self.Name(15), 
-        	                                                 self.IP(15))
+        return "Radio ID: %s Radio Name: %s Radio IP: %s" % (self.RadioID(15), 
+        	                                                 self.RadioName(15), 
+        	                                                 self.RadioIP(15))
         
     def __repr__(self):
         return "Radios - pythonID: %s" % (id(self))
 
-    def ID(self, pad=0):
-        if pad==0:
+    def RadioID(self, pad=None):
+        if pad==None:
             return self._ID
         if self._ID==None:
             return " ".ljust(pad, " ")
         else:
-            return self._ID.ljust(pad, " ")
+            return self._ID #.ljust(pad, " ")
 
-    def IP(self, pad=0):
-        if pad==0:
+    def RadioIP(self, pad=None):
+        if pad==None:
             return self._IP
         if self._IP==None:
             return " ".ljust(pad, " ")
         else:
             return self._IP.ljust(pad, " ")
 
-    def Location(self, pad=0):
-        if pad==0:
+    def RadioLocation(self, pad=None):
+        if pad==None:
             return self._Location
         if self._Location==None:
             return " ".ljust(pad, " ")
         else:
             return self._Location.ljust(pad, " ")
 
-    def Name(self, pad=0):
-        if pad==0:
+    def RadioName(self, pad=None):
+        if pad==None:
             return self._Name
         if self._Name==None:
+
             return "".ljust(pad, " ")
         else:
             return self._Name.ljust(pad, " ")    
 
-    def set_IP(self, IP):
+    def set_IP(self, RadioIP):
         self._IP = IP
 
-    def set_ID(self, ID):
+    def set_ID(self, RadioID):
         self._ID = ID
 
-    def set_Name(self, Name):
+    def set_location(self, Radiolocation):
+        self._Location = location
+
+    def set_Name(self, RadioName):
         self._Name = Name
 
     def SignIn(self):
@@ -110,4 +114,4 @@ if __name__ == "__main__":
 	#print(r1)
 	#r.print_self()
     r.print_self()
-    print(r)
+    #print(r.Name(0))
