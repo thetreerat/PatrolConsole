@@ -14,7 +14,7 @@ class Radio(object):
         self._Name=RadioName
         self._IP=RadioIP
         self._Location=None
-        self._ID=RadioID
+        self._RadioID=RadioID
         if SignedIn==None:
             self._SignedIn=False
         else:
@@ -30,11 +30,11 @@ class Radio(object):
 
     def RadioID(self, pad=None):
         if pad==None:
-            return self._ID
-        if self._ID==None:
+            return self._RadioID
+        if self._RadioID==None:
             return " ".ljust(pad, " ")
         else:
-            return self._ID #.ljust(pad, " ")
+            return self._RadioID #.ljust(pad, " ")
 
     def RadioIP(self, pad=None):
         if pad==None:
@@ -71,11 +71,12 @@ class Radio(object):
         self._Location = location
 
     def set_Name(self, RadioName):
-        self._Name = Name
+        self._Name = RadioName
 
-    def SignIn(self):
+    def SignIn(self, RadioName):
         #print("sign in!")
         self._SignedIn = datetime.datetime.now()
+        self.set_Name(RadioName=RadioName)
 
     def print_self(self):
         print("Name: %s  IP: %s ID: %s SignedIn: %s" % (self.Name(15), 

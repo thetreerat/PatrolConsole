@@ -36,13 +36,13 @@ class  DMRServer(object):
     def sendName(self):
         pass        
     def checkRadioCommand(self, m, rmsg):
-        if command=='Signin':
-            r = self.Radios.checkIP(m.sourceIP, return_type.object)
-            r.Signin()
+        if m.command().strip()=='SignIN':
+            r = self.Radios.checkIP(m.sourceIP, return_type=Radio.object)
+            r.SignIn(m.extra(0))
             signmsg = "%s signed in for %s." % (r.RadioID(0), m.extra(0))
             print(signmsg)
             rmsg.set_extra(rmsg.extra(0) + " " + signmsg)
-            return rmsg
+        return rmsg
 
     def checkRadioRegisteration(self, msg, rmsg, timeval):
         r = self.Radios.checkIP(msg.sourceIP, return_type=Radio.object)
@@ -68,9 +68,9 @@ class  DMRServer(object):
                 timeval = datetime.datetime.now()
                 returnmsg = Message()
                 msg = msgAndAddress[0].decode()
-
                 m = Message(msgAndAddress)
-                returnmsg = Message()
+            
+
                 returnmsg = self.checkRadioRegisteration(m, returnmsg, timeval)
                 returnmsg = self.checkRadioCommand(m, returnmsg)
                 # Closing message if nothing to do!!

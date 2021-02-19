@@ -67,7 +67,7 @@ class Radios(object):
         self.Radios = sorted(self.Radios, key=self.sort_key_Radio_ID)
 
     def sort_key_Radio_ID(self, i):
-        return i._ID
+        return i._RadioID
 
 if __name__ == "__main__":
     R = Radios()
