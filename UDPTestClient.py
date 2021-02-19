@@ -45,13 +45,12 @@ if __name__ == "__main__":
     N = UDPClient(IP="192.168.1.17", Port=4007)
     print(N)
     msg = "DoSomeThBill T -HILL.  Hello to you".encode()
-    msg2 = "SignIN  Unregistered   Hal C -AP".encode()
+    msg2 = "SignIN  Unregistered    Hal C -AP".encode()
     inet = (N.ServerIP, N.ServerPort)
-    msgandAddress = 
-    m = Message(msg,inet)
-    m2 = Message(msg2,inet)
+    m = Message((msg,inet))
+    m2 = Message((msg2,inet))
     N.CreateSocket()
     N.requestData(m.encoded)
-    
+    #N.CreateSocket()
     N.requestData(m2.encoded)
     #N.About()
