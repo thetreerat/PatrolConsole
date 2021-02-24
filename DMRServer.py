@@ -39,6 +39,7 @@ class  DMRServer(object):
         if m.command().strip()=='SignIN':
             r = self.Radios.checkIP(m.sourceIP, return_type=Radio.object)
             r.SignIn(m.extra(0))
+            print("CheckRadioCommand: %s" % (r.RadioID(0)))
             signmsg = "%s signed in for %s." % (r.RadioID(0), m.extra(0))
             print(signmsg)
             rmsg.set_extra(rmsg.extra(0) + " " + signmsg)
@@ -50,6 +51,7 @@ class  DMRServer(object):
         if r==None:
             r = Radio(RadioIP=msg.sourceIP, RadioID=msg.RadioID)
             self.Radios.append(r)
+
             print("Radio %s with IP address %s add to List of Active Radios" % (r.RadioID(0), r.RadioIP(0)))
             rmsg.set_extra(rmsg.extra(0) + " Added to list of Active Radios")
         if r.SignedIn()==False:
@@ -94,7 +96,8 @@ class  DMRServer(object):
 
     
 if __name__ == "__main__":
-    S = DMRServer(IP="192.168.1.17", Port=4007)
+    #S = DMRServer(IP="192.168.1.17", Port=4007)
+    S = DMRServer(IP="10.10.244.30", Port=4007)
     S.run_server()
     
     #L = Login(login='halc')

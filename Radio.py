@@ -7,28 +7,28 @@ import datetime
 class Radio(object):
     """Radio Class Object """
     def __init__(self,
-                 RadioID=None,
+                 RadioIDtext=None,
                  RadioName=None,
                  RadioIP=None,
                  SignedIn=None):
         self._Name=RadioName
         self._IP=RadioIP
         self._Location=None
-        self._RadioID=RadioID
+        self._RadioID=RadioIDtext
         if SignedIn==None:
             self._SignedIn=False
         else:
             self._SignedIn=SignedIn
 
     def __str__(self):
-        return "Radio ID: %s Radio Name: %s Radio IP: %s" % (self.RadioID(15), 
+        return "Radio ID: %s Radio Name: %s Radio IP: %s" % (self.RadioIDtext(15), 
         	                                                 self.RadioName(15), 
         	                                                 self.RadioIP(15))
         
     def __repr__(self):
         return "Radios - pythonID: %s" % (id(self))
 
-    def RadioID(self, pad=None):
+    def RadioIDtext(self, pad=None):
         if pad==None:
             return self._RadioID
         if self._RadioID==None:
