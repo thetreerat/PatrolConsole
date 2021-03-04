@@ -15,6 +15,7 @@ class Radio(object):
         self._IP=RadioIP
         self._Location=None
         self._RadioID=RadioIDtext
+        print("RadioIDText value: %s" % (RadioIDtext))
         if SignedIn==None:
             self._SignedIn=False
         else:
@@ -34,7 +35,7 @@ class Radio(object):
         if self._RadioID==None:
             return " ".ljust(pad, " ")
         else:
-            return self._RadioID #.ljust(pad, " ")
+            return "test" #self._RadioID #.ljust(pad, " ")
 
     def RadioIP(self, pad=None):
         if pad==None:
