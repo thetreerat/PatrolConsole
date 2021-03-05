@@ -42,7 +42,8 @@ Purpose        : This Class is a temlplete file
 
 if __name__ == "__main__":
 
-    N = UDPClient(IP="10.10.244.30", Port=4007)
+    #N = UDPClient(IP="10.10.244.30", Port=4007)
+    N = UDPClient(IP="192.168.1.17", Port=4007)
     print(N)
     msg = "DoSomeThBill T -HILL.  Hello to you".encode()
     msg2 = "SignIN  Unregistered    Hal C -AP".encode()
