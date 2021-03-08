@@ -1,7 +1,7 @@
 # Copyright Harold Clark 2021
 #
-#from login import Login
-#from database import database
+from login import Login
+from database import database
 import datetime
 
 class Radio(object):
